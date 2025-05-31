@@ -3,7 +3,9 @@ package com.example.globalsolution1.Mapper;
 import com.example.globalsolution1.DTO.UsuarioRequest;
 import com.example.globalsolution1.DTO.UsuarioResponse;
 import com.example.globalsolution1.Model.Usuario;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UsuarioMapper
 {
     public Usuario requestToUsuario(UsuarioRequest usuarioRequest)

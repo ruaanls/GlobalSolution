@@ -2,7 +2,9 @@ package com.example.globalsolution1.Mapper;
 
 import com.example.globalsolution1.DTO.DadosChuvaResponse;
 import com.example.globalsolution1.Model.DadosChuva;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DadosChuvaMapper
 {
     public DadosChuvaResponse dadosChuvaToResponse(DadosChuva dadosChuva)

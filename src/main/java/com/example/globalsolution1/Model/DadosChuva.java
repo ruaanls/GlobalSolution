@@ -18,7 +18,7 @@ public class DadosChuva
     private Integer probabilidadeChuva;
     private String conclusao;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario", nullable = false)
+    @JoinColumn(name = "id_usuario_consulta", referencedColumnName = "idUsuario", nullable = false)
     private Usuario usuario;
 
 
