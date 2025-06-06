@@ -3,7 +3,9 @@ package com.example.globalsolution1.Controller;
 
 
 import com.example.globalsolution1.DTO.LoginRequest;
+import com.example.globalsolution1.DTO.LoginResponse;
 import com.example.globalsolution1.DTO.UsuarioRequest;
+import com.example.globalsolution1.Mapper.AuthMapper;
 import com.example.globalsolution1.Mapper.UsuarioMapper;
 import com.example.globalsolution1.Model.Usuario;
 import com.example.globalsolution1.Repository.UsuarioRepository;
@@ -14,11 +16,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.swing.text.html.Option;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
@@ -30,8 +36,10 @@ public class AuthController
     private TokenService tokenService;
     @Autowired
     private AuthenticationManager authenticateManager;
+    private String userRole;
 
     private final UsuarioMapper usuarioMapper = new UsuarioMapper();
+    private final AuthMapper authMapper = new AuthMapper();
 
     @PostMapping("/registrar")
     public ResponseEntity<Void> createUsuario(@Valid @RequestBody UsuarioRequest usuarioRequest)
@@ -50,14 +58,26 @@ public class AuthController
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest)
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest)
     {
         var userPassword = new UsernamePasswordAuthenticationToken(
                 loginRequest.getUsername(),
                 loginRequest.getPassword());
         var autenticacao = this.authenticateManager.authenticate(userPassword);
         var token = tokenService.generateToken((Usuario) autenticacao.getPrincipal());
-        return ResponseEntity.ok(token);
+        Optional<? extends GrantedAuthority> userRole = autenticacao.getAuthorities().stream().findFirst();
+        if(userRole.isPresent())
+        {
+            this.userRole = String.valueOf(userRole);
+            this.userRole= this.userRole.replace("Optional[", "")
+                    .replace("]", "")
+                    .replace("_", " ");
+
+
+        }
+        LoginResponse loginResponse = authMapper.makeLoginResponse(token,loginRequest.getUsername(),this.userRole);
+        return new ResponseEntity<>(loginResponse,HttpStatus.CREATED);
+
     }
 
 

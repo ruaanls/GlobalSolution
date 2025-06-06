@@ -40,7 +40,7 @@ public class TokenService
     {
         return LocalDateTime
                 .now()
-                .plusMinutes(2)
+                .plusMinutes(15)
                 .toInstant(ZoneOffset.of("-03:00"));
     }
 
