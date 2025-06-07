@@ -8,17 +8,22 @@ public class DadosChuva
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_CONSULTA")
     private long id_consulta;
 
     private String cidade;
     private String estado;
     private String data;
+    @Column(name = "TEMPERATURA_MEDIA")
     private Double temperatura_media;
+    @Column(name = "TOTALPRECIPITACAO")
     private Double totalPrecipitacao;
+    @Column(name = "PROBABILIDADECHUVA")
     private Integer probabilidadeChuva;
     private String conclusao;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario_consulta", referencedColumnName = "idUsuario", nullable = false)
+
+    @JoinColumn(name = "id_usuario", referencedColumnName = "idUsuario", nullable = false)
     private Usuario usuario;
 
 

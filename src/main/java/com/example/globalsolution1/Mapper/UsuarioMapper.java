@@ -2,6 +2,7 @@ package com.example.globalsolution1.Mapper;
 
 import com.example.globalsolution1.DTO.UsuarioRequest;
 import com.example.globalsolution1.DTO.UsuarioResponse;
+import com.example.globalsolution1.Model.UserRole;
 import com.example.globalsolution1.Model.Usuario;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +20,15 @@ public class UsuarioMapper
         usuario.setIdade(usuarioRequest.getIdade());
         usuario.setNome(usuarioRequest.getNome());
         usuario.setUsername(usuarioRequest.getUsername());
-        usuario.setUserRole(usuarioRequest.getTipo_usuario());
+        if(usuarioRequest.getTipo_usuario() == null)
+        {
+            usuario.setUserRole(UserRole.USUARIO);
+        }
+        else
+        {
+            usuario.setUserRole(usuarioRequest.getTipo_usuario());
+        }
+
 
         return usuario;
     }

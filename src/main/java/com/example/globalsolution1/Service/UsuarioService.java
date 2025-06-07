@@ -7,6 +7,7 @@ import com.example.globalsolution1.Model.Usuario;
 import com.example.globalsolution1.Repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -35,14 +36,27 @@ public class UsuarioService
     @Transactional
     public UsuarioResponse putUsuario(String username, UsuarioRequest usuarioRequest)
     {
-        Usuario usuario = usuarioRepository.findUsuarioByUsername(username);
-        usuario.setNome(usuarioRequest.getNome());
-        usuario.setCidade(usuarioRequest.getCidade());
-        usuario.setIdade(usuarioRequest.getIdade());
-        usuario.setPassword(usuarioRequest.getPassword());
-        usuario.setUsername(usuarioRequest.getUsername());
-        usuario.setUserRole(usuarioRequest.getTipo_usuario());
-        return usuarioMapper.usuarioToResponse(usuarioRepository.save(usuario));
+
+        Usuario usuarioExistente = usuarioRepository.findUsuarioByUsername(username);
+        if (usuarioExistente == null) {
+
+            throw new EntityNotFoundException("Usuário não encontrado: " + username);
+        }
+
+
+        usuarioExistente.setNome(usuarioRequest.getNome());
+        usuarioExistente.setCidade(usuarioRequest.getCidade());
+        usuarioExistente.setIdade(usuarioRequest.getIdade());
+        usuarioExistente.setUsername(usuarioRequest.getUsername());
+        String senhaCriptografada = new BCryptPasswordEncoder()
+                .encode(usuarioRequest.getPassword());
+        usuarioExistente.setPassword(senhaCriptografada);
+        usuarioExistente.setUserRole(usuarioRequest.getTipo_usuario());
+
+
+        Usuario usuarioAtualizado = usuarioRepository.save(usuarioExistente);
+
+        return usuarioMapper.usuarioToResponse(usuarioAtualizado);
     }
 
     public void deleteUsuario(String username)

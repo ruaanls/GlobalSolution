@@ -14,6 +14,9 @@ import java.util.UUID;
 @Table (name = "Usuario")
 public class Usuario implements UserDetails
 {
+
+    @Version
+    private Long version;
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID idUsuario;
@@ -22,8 +25,10 @@ public class Usuario implements UserDetails
     private Integer idade;
     private String username;
     private String password;
+
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<DadosChuva>dadosChuvaList = new ArrayList<>();
+    private List<DadosChuva> dadosChuvaList = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_usuario", nullable = false)
     private UserRole userRole;
