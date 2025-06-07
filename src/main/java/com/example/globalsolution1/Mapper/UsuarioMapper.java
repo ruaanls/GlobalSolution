@@ -15,11 +15,12 @@ public class UsuarioMapper
             return null;
         }
         Usuario usuario = new Usuario();
-        usuario.setCep(usuarioRequest.getCep());
-        usuario.setIdade(usuarioRequest.getAge());
-        usuario.setNome(usuarioRequest.getName());
+        usuario.setCidade(usuarioRequest.getCidade());
+        usuario.setIdade(usuarioRequest.getIdade());
+        usuario.setNome(usuarioRequest.getNome());
         usuario.setUsername(usuarioRequest.getUsername());
-        usuario.setUserRole(usuarioRequest.getUserRole());
+        usuario.setUserRole(usuarioRequest.getTipo_usuario());
+
         return usuario;
     }
 
@@ -32,8 +33,10 @@ public class UsuarioMapper
         UsuarioResponse usuarioResponse = new UsuarioResponse();
         usuarioResponse.setIdUsuario(usuario.getIdUsuario());
         usuarioResponse.setNome(usuario.getNome());
-        usuarioResponse.setCep(usuario.getCep());
+        usuarioResponse.setCep(usuario.getCidade());
         usuarioResponse.setIdade(usuario.getIdade());
+        usuarioResponse.setUsername(usuario.getUsername());
+
         return usuarioResponse;
     }
 

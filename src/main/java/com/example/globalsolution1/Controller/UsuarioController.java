@@ -26,24 +26,24 @@ public class UsuarioController
 
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UsuarioResponse> getUsuarioById(@PathVariable UUID id)
+    @GetMapping("/{username}")
+    public ResponseEntity<UsuarioResponse> getUsuarioById(@PathVariable String username)
     {
-        UsuarioResponse usuarioResponse = usuarioService.getUsuario(id);
+        UsuarioResponse usuarioResponse = usuarioService.getUsuario(username);
         return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UsuarioResponse> putUsuarioById(@PathVariable UUID id, @Valid @RequestBody UsuarioRequest usuarioRequest)
+    @PutMapping("/{username}")
+    public ResponseEntity<UsuarioResponse> putUsuarioById(@PathVariable String username, @Valid @RequestBody UsuarioRequest usuarioRequest)
     {
-        UsuarioResponse usuarioResponse = usuarioService.putUsuario(id, usuarioRequest);
+        UsuarioResponse usuarioResponse = usuarioService.putUsuario(username, usuarioRequest);
         return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUsuarioById(@PathVariable UUID id)
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Void> deleteUsuarioById(@PathVariable String username)
     {
-        usuarioService.deleteUsuario(id);
+        usuarioService.deleteUsuario(username);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

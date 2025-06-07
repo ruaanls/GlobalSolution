@@ -4,20 +4,20 @@ import com.example.globalsolution1.Model.UserRole;
 
 public class UsuarioRequest
 {
-    private String name;
-    private String cep;
-    private Integer age;
-    private UserRole userRole;
+    private String nome;
+    private String cidade;
+    private Integer idade;
+    private UserRole tipo_usuario;
     private String username;
     private String password;
 
 
-    public UserRole getUserRole() {
-        return userRole;
+    public UserRole getTipo_usuario() {
+        return tipo_usuario;
     }
 
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public void setTipo_usuario(UserRole tipo_usuario) {
+        this.tipo_usuario = tipo_usuario;
     }
 
     public String getUsername() {
@@ -36,35 +36,35 @@ public class UsuarioRequest
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getCep() {
-        return cep;
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setCep(String cep) {
-        this.cep = cep;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
-    public Integer getAge() {
-        return age;
+    public Integer getIdade() {
+        return idade;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setIdade(Integer idade) {
+        this.idade = idade;
     }
 
     public UserRole getTipoAcesso() {
-        return userRole;
+        return tipo_usuario;
     }
 
     public void setTipoAcesso(UserRole userRole) {
-        this.userRole = userRole;
+        this.tipo_usuario = userRole;
     }
 }

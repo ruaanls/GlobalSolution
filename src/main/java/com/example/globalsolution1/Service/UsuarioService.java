@@ -6,6 +6,7 @@ import com.example.globalsolution1.Mapper.UsuarioMapper;
 import com.example.globalsolution1.Model.Usuario;
 import com.example.globalsolution1.Repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -24,27 +25,28 @@ public class UsuarioService
 
 
 
-    public UsuarioResponse createUsuario(UsuarioRequest usuarioRequest)
+
+
+    public UsuarioResponse getUsuario(String username)
     {
-        return usuarioMapper.usuarioToResponse(usuarioRepository.save(usuarioMapper.requestToUsuario(usuarioRequest)));
+        return usuarioMapper.usuarioToResponse(usuarioRepository.findUsuarioByUsername(username));
     }
 
-    public UsuarioResponse getUsuario(UUID idUsuario)
+    @Transactional
+    public UsuarioResponse putUsuario(String username, UsuarioRequest usuarioRequest)
     {
-        return usuarioMapper.usuarioToResponse(usuarioRepository.findById(idUsuario).orElseThrow(() ->new EntityNotFoundException("Usuário não encontrado")));
+        Usuario usuario = usuarioRepository.findUsuarioByUsername(username);
+        usuario.setNome(usuarioRequest.getNome());
+        usuario.setCidade(usuarioRequest.getCidade());
+        usuario.setIdade(usuarioRequest.getIdade());
+        usuario.setPassword(usuarioRequest.getPassword());
+        usuario.setUsername(usuarioRequest.getUsername());
+        usuario.setUserRole(usuarioRequest.getTipo_usuario());
+        return usuarioMapper.usuarioToResponse(usuarioRepository.save(usuario));
     }
 
-    public UsuarioResponse putUsuario(UUID idUsuario, UsuarioRequest usuarioRequest)
+    public void deleteUsuario(String username)
     {
-        Usuario ususario = usuarioRepository.findById(idUsuario).orElseThrow(()-> new EntityNotFoundException ("Usuário não encontrado" ));
-        ususario.setNome(usuarioRequest.getName());
-        ususario.setCep(usuarioRequest.getCep());
-        ususario.setIdade(usuarioRequest.getAge());
-        return usuarioMapper.usuarioToResponse(usuarioRepository.save(ususario));
-    }
-
-    public void deleteUsuario(UUID idUsuario)
-    {
-        usuarioRepository.deleteById(idUsuario);
+        usuarioRepository.deleteByUsername(username);
     }
 }
