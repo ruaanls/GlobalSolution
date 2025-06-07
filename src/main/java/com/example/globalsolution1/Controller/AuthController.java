@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.swing.text.html.Option;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -42,11 +43,12 @@ public class AuthController
     private final AuthMapper authMapper = new AuthMapper();
 
     @PostMapping("/registrar")
-    public ResponseEntity<Void> createUsuario(@Valid @RequestBody UsuarioRequest usuarioRequest)
+    public ResponseEntity<?> createUsuario(@Valid @RequestBody UsuarioRequest usuarioRequest)
     {
         if(usuarioRepository.findByUsername(usuarioRequest.getUsername()) != null)
         {
-            return ResponseEntity.badRequest().build();
+            Map<String, String> erro = Map.of("erro", "Username já existente, por favor tente novamente um diferente");
+            return ResponseEntity.badRequest().body(erro);
         }
         String senhaCriptografada = new BCryptPasswordEncoder()
                 .encode(usuarioRequest.getPassword());
@@ -54,7 +56,6 @@ public class AuthController
         novoUsuario.setPassword(senhaCriptografada);
         usuarioRepository.save(novoUsuario);
         return new ResponseEntity<>(HttpStatus.CREATED);
-
     }
 
     @PostMapping("/login")
@@ -72,11 +73,9 @@ public class AuthController
             this.userRole= this.userRole.replace("Optional[", "")
                     .replace("]", "")
                     .replace("_", " ");
-
-
         }
         LoginResponse loginResponse = authMapper.makeLoginResponse(token,loginRequest.getUsername(),this.userRole);
-        return new ResponseEntity<>(loginResponse,HttpStatus.CREATED);
+        return new ResponseEntity<>(loginResponse,HttpStatus.OK);
 
     }
 

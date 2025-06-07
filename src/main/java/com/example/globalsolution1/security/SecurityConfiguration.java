@@ -1,5 +1,7 @@
 package com.example.globalsolution1.security;
 
+import com.example.globalsolution1.Exception.AuthenticationResponseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,7 +20,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration
 {
     private final SecurityFilter securityFilter;
-
+    @Autowired
+    private AuthenticationResponseException authenticationResponseException;
     public SecurityConfiguration(SecurityFilter securityFilter) {
         this.securityFilter = securityFilter;
     }
@@ -35,6 +38,10 @@ public class SecurityConfiguration
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/user/{id}").hasRole("ADM")
                         .anyRequest().authenticated()
+                )
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(authenticationResponseException)
+
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 
