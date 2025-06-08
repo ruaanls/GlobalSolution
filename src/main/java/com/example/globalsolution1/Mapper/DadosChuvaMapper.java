@@ -15,7 +15,7 @@ public class DadosChuvaMapper
         dadosChuvaResponse.setConclusao(dadosChuva.getConclusao());
         dadosChuvaResponse.setData(dadosChuva.getData());
         dadosChuvaResponse.setEstado(dadosChuva.getEstado());
-        dadosChuvaResponse.setId_consulta(dadosChuva.getId_consulta());
+        dadosChuvaResponse.setId_consulta(dadosChuva.getId());
         dadosChuvaResponse.setTemperaturaMedia(dadosChuva.getTemperatura_media());
         dadosChuvaResponse.setTotalPrecipitacao(dadosChuva.getTotalPrecipitacao());
         return dadosChuvaResponse;

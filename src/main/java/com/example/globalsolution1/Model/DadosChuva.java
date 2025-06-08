@@ -3,36 +3,35 @@ package com.example.globalsolution1.Model;
 import jakarta.persistence.*;
 
 @Entity
-@Table (name = "Dados_chuva")
+@Table (name = "dados_chuva")
 public class DadosChuva
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_CONSULTA")
-    private long id_consulta;
+    @Column(name = "id")
+    private long id;
 
     private String cidade;
     private String estado;
     private String data;
-    @Column(name = "TEMPERATURA_MEDIA")
+
     private Double temperatura_media;
-    @Column(name = "TOTALPRECIPITACAO")
+    @Column(name = "total_precipitacao")
     private Double totalPrecipitacao;
-    @Column(name = "PROBABILIDADECHUVA")
+    @Column(name = "probabilidade_de_chuva")
     private Integer probabilidadeChuva;
     private String conclusao;
     @ManyToOne(fetch = FetchType.LAZY)
-
-    @JoinColumn(name = "id_usuario", referencedColumnName = "idUsuario", nullable = false)
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id", nullable = false)
     private Usuario usuario;
 
 
-    public long getId_consulta() {
-        return id_consulta;
+    public long getId() {
+        return id;
     }
 
-    public void setId_consulta(long id_consulta) {
-        this.id_consulta = id_consulta;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getCidade() {

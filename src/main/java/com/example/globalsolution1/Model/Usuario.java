@@ -11,22 +11,19 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table (name = "Usuario")
+@Table (name = "usuario")
 public class Usuario implements UserDetails
 {
 
-    @Version
-    private Long version;
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID idUsuario;
+    private UUID id;
     private String nome;
     private String cidade;
     private Integer idade;
     private String username;
     private String password;
-
-
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<DadosChuva> dadosChuvaList = new ArrayList<>();
     @Enumerated(EnumType.STRING)
@@ -48,12 +45,12 @@ public class Usuario implements UserDetails
 
 
 
-    public UUID getIdUsuario() {
-        return idUsuario;
+    public UUID getId() {
+        return id;
     }
 
-    public void setIdUsuario(UUID idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getNome() {
