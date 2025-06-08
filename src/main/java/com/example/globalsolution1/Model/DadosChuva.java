@@ -1,11 +1,15 @@
 package com.example.globalsolution1.Model;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 @Table (name = "dados_chuva")
 public class DadosChuva
 {
+
+    @Value("${api..datasource.weather.privatekey}")
+    private String key;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -25,6 +29,14 @@ public class DadosChuva
     @JoinColumn(name = "id_usuario", referencedColumnName = "id", nullable = false)
     private Usuario usuario;
 
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public long getId() {
         return id;

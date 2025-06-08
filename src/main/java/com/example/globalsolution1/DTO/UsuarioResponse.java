@@ -6,9 +6,11 @@ public class UsuarioResponse
 {
     private UUID idUsuario;
     private String nome;
-    private String cep;
+    private String cidade;
     private String username;
     private Integer idade;
+    private String tipo_usuario;
+
 
     public String getUsername() {
         return username;
@@ -34,12 +36,12 @@ public class UsuarioResponse
         this.nome = nome;
     }
 
-    public String getCep() {
-        return cep;
+    public String getCidade() {
+        return cidade;
     }
 
-    public void setCep(String cep) {
-        this.cep = cep;
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
     public Integer getIdade() {

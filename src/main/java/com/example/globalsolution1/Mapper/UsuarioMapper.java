@@ -42,7 +42,7 @@ public class UsuarioMapper
         UsuarioResponse usuarioResponse = new UsuarioResponse();
         usuarioResponse.setIdUsuario(usuario.getId());
         usuarioResponse.setNome(usuario.getNome());
-        usuarioResponse.setCep(usuario.getCidade());
+        usuarioResponse.setCidade(usuario.getCidade());
         usuarioResponse.setIdade(usuario.getIdade());
         usuarioResponse.setUsername(usuario.getUsername());
 

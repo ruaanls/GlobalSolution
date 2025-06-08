@@ -20,4 +20,6 @@ public class DadosChuvaMapper
         dadosChuvaResponse.setTotalPrecipitacao(dadosChuva.getTotalPrecipitacao());
         return dadosChuvaResponse;
     }
+
+
 }
