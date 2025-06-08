@@ -2,7 +2,9 @@ package com.example.globalsolution1.Service;
 
 import com.example.globalsolution1.DTO.DadosChuvaResponse;
 import com.example.globalsolution1.Model.DadosChuva;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DadosChuvaService
 {
     private DadosChuva dadosChuva;

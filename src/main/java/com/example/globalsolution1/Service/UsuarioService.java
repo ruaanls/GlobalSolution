@@ -7,6 +7,8 @@ import com.example.globalsolution1.Model.Usuario;
 import com.example.globalsolution1.Repository.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,11 @@ public class UsuarioService
     public UsuarioResponse getUsuario(String username)
     {
         return usuarioMapper.usuarioToResponse(usuarioRepository.findUsuarioByUsername(username));
+    }
+
+    public Page<UsuarioResponse> getAllUsuarios(Pageable pageable)
+    {
+        return usuarioRepository.findAll(pageable).map(usuario -> usuarioMapper.usuarioToResponse(usuario));
     }
 
     @Transactional

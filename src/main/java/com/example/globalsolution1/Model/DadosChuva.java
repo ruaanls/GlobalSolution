@@ -10,6 +10,8 @@ public class DadosChuva
 
     @Value("${api..datasource.weather.privatekey}")
     private String key;
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

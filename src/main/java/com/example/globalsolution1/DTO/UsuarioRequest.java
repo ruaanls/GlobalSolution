@@ -16,20 +16,20 @@ public class UsuarioRequest
     @NotBlank(message = "Campos em branco não são válidos")
     private String cidade;
     @NotNull(message = "idade é um campo obrigatório")
-    @Size(min = 1, max = 120, message = "A sua idade deve ser maior que 0 e menor que 120")
-    @NotBlank(message = "Campos em branco não são válidos")
+
+
     private Integer idade;
     @NotNull(message = "O campo TipoUsuário é obrigatório")
-    @NotBlank(message = "Campos em branco não são válidos")
+
     private UserRole tipo_usuario;
 
     @NotNull(message = "É obrigatório adicionar um username para criar sua conta")
     @NotBlank(message = "Campos em branco não são válidos")
-    @Size(min = 2, max = 255, message = "O seu username deve ter mais do que dois caracteres e menos do que 255")
+
     private String username;
     @NotNull(message = "É obrigatório adicionar um password(senha) para criar sua conta")
     @NotBlank(message = "Campos em branco não são válidos")
-    @Size(min = 2, max = 255, message = "A sua senha deve ter mais do que dois caracteres e menos do que 255")
+
     private String password;
 
 

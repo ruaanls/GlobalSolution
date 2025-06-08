@@ -6,12 +6,13 @@ import com.example.globalsolution1.DTO.UsuarioResponse;
 import com.example.globalsolution1.Service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
@@ -32,6 +33,15 @@ public class UsuarioController
         UsuarioResponse usuarioResponse = usuarioService.getUsuario(username);
         return new ResponseEntity<>(usuarioResponse, HttpStatus.OK);
     }
+
+    @GetMapping
+    public ResponseEntity<Page<UsuarioResponse>> getAllUsuarios(@RequestParam(defaultValue = "0") Integer pageNumber)
+    {
+        Pageable pageable = PageRequest
+                .of(pageNumber, 2, Sort.by("nome").ascending());
+        return new ResponseEntity<>(usuarioService.getAllUsuarios(pageable),HttpStatus.OK);
+    }
+
 
     @PutMapping("/{username}")
     public ResponseEntity<UsuarioResponse> putUsuarioById(@PathVariable String username, @Valid @RequestBody UsuarioRequest usuarioRequest)
