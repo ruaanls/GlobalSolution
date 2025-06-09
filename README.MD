@@ -24,7 +24,7 @@ Esta é uma API RESTful construída com Java e Spring Boot para gerenciar usuár
 
 3.  **Execução:**
     - Execute o arquivo globalsolution1Aplication
-    - A aplicação estará disponível em `http://localhost:8080`.
+    - A aplicação estará disponível em `http://52.179.20.23`.
 
 ## Autenticação (JWT)
 
