@@ -10,6 +10,12 @@ import com.example.globalsolution1.Mapper.UsuarioMapper;
 import com.example.globalsolution1.Model.Usuario;
 import com.example.globalsolution1.Repository.UsuarioRepository;
 import com.example.globalsolution1.Service.TokenService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,11 +30,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.swing.text.html.Option;
+import java.awt.geom.Area;
 import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Api-Autenticação")
 public class AuthController
 {
     @Autowired
@@ -42,6 +50,15 @@ public class AuthController
     private final UsuarioMapper usuarioMapper = new UsuarioMapper();
     private final AuthMapper authMapper = new AuthMapper();
 
+    @Operation(summary = "Cria um novo usuário")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Area.class))),
+            @ApiResponse(responseCode = "400", description = "Parâmetros informados são inválidos",
+                    content = @Content(schema = @Schema()))
+    })
     @PostMapping("/registrar")
     public ResponseEntity<?> createUsuario(@Valid @RequestBody UsuarioRequest usuarioRequest)
     {
@@ -57,6 +74,16 @@ public class AuthController
         usuarioRepository.save(novoUsuario);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @Operation(summary = "Realiza um login")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Login realizado com sucesso",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Area.class))),
+            @ApiResponse(responseCode = "400", description = "Parâmetros informados são inválidos",
+                    content = @Content(schema = @Schema()))
+    })
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest)
